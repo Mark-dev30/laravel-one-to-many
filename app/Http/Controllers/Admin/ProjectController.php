@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Support\Facades\Auth;
 //RICHIAMO IL MODEL
 use App\Models\Project;
+use App\Models\Type;
 
 
 class ProjectController extends Controller
@@ -22,6 +23,7 @@ class ProjectController extends Controller
         //ASSEGNO A $projects I RECORDS DELLA TABELLA. IN QUESTO CASO DIVENTA UN ARRAY
         //Proect::all() FA RIFERIMENTO AL MODEL Project, all() E' UNA FUNZIONE PREDEFINITA CHE RECUPERA TUTTI I RECORD PRESENTI NELLA TABELLA DEL DATABASE CORRISPONDENTE AL MODELLO.
         $projects = Project::all();
+
         //REINDIRIZZA ALLA PAGINA INDEX. VIENE PASSATO L'ARRAY $projects TRAMITE COMPACT
         return view('admin.projects.index', compact('projects'));
     }
@@ -33,8 +35,10 @@ class ProjectController extends Controller
      */
     public function create()
     {
+        //CREO UN ARRAY CON I TIPI.
+        $types = Type::all();
         //REINDIRIZZA ALLA PAGINA CREATE.
-        return view('admin.projects.create');
+        return view('admin.projects.create', compact('types'));
     }
 
     /**
@@ -84,8 +88,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
+        $types = Type::all();
         //REINDIRIZZA ALLA PAGINA EDIT. VIENE PASSATO IL SINGOLO PROGETTO $project TRAMITE COMPACT
-        return view('admin.projects.edit', compact('project'));
+        return view('admin.projects.edit', compact('project', 'types'));
     }
 
     /**

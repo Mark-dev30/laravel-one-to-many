@@ -22,6 +22,7 @@
                         <th scope="col">TITLE</th>
                         <th scope="col">CONTENT</th>
                         <th scope="col">SLUG</th>
+                        <th scope="col">Type</th>
                         <th scope="col">ACTION</th>
                     </tr>
                 </thead>
@@ -29,10 +30,12 @@
                     {{-- CICLA L'ARRAY projects CHE VIENE PASSATO DALLA FUNZIONE index TRAMITE COMPACT --}}
                     @foreach ($projects as $project)
                     <tr>
+                        
                         <td>{{ $project->id }}</td>
                         <td>{{ $project->title }}</td>
                         <td>{{ $project->content }}</td>
                         <td>{{ $project->slug }}</td>
+                        <td> {{$project->type ? $project->type->name : 'Uncategorized'}}</td>
                         <td>
                             <div class="d-flex">
                                 {{-- REINDIRIZZA ALLA FUNZIONE show DEL CONTROLLORE ProjectController PASSANDOGLI LO SLUG DELL'ELEMENTO SELEZIONATO --}}

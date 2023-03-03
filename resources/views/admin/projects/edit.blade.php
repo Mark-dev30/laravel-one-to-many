@@ -26,6 +26,14 @@
                   <input name="title" type="text" class="form-control" value="{{ old('title') ?? $project->title }}">
                 </div>
                 <div class="mb-3">
+                    <label  class="form-label">Enter Type</label>
+                    <select class="form-controll" name="type_id" id="type_id">
+                        @foreach ($types as $type)
+                            <option value="{{$type->id}}" {{$type->id == old('type_id', $project->type_id) ? 'selected' : ''}}> {{$type->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-3">
                     <label  class="form-label">Enter Content</label>
                     {{-- IN QUESTO CASO MOSTRA IL CONTENUTO CHE ABBIAMO INSERITO NEL CREATE --}}
                     <textarea class="form-control" name="content"  cols="30" rows="10" >{{ old('content') ?? $project->content }}</textarea>

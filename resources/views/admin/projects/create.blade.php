@@ -23,6 +23,14 @@
                   <input name="title" type="text" class="form-control">
                 </div>
                 <div class="mb-3">
+                    <label  class="form-label">Types</label>
+                    <select class="form-control" name="type_id" id="type_id">
+                        @foreach ($types as $type)
+                            <option value="{{$type->id}}">{{$type->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-3">
                     <label  class="form-label">Enter Content</label>
                     <textarea class="form-control" name="content"  cols="30" rows="10"></textarea>
                 </div>
