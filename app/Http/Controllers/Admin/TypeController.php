@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Type;
 use App\Http\Requests\StoreTypeRequest;
 use App\Http\Requests\UpdateTypeRequest;
-
 use Illuminate\Support\Facades\Auth;
+use App\Models\Type;
+use App\Models\Project;
 
 
 class TypeController extends Controller
@@ -30,7 +30,7 @@ class TypeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.types.create');
     }
 
     /**
@@ -41,7 +41,18 @@ class TypeController extends Controller
      */
     public function store(StoreTypeRequest $request)
     {
-        //
+        $form = $request->validated();
+        $slug = Project::generateSlug($request->name, '-');
+
+        $form['slug'] = $slug;
+
+        $newType = new Type();
+
+        $newType->fill($form);
+
+        $newType->save();
+
+        return redirect()->route('admin.types.index')->with('message', 'TYPES CREATED');
     }
 
     /**
@@ -63,7 +74,7 @@ class TypeController extends Controller
      */
     public function edit(Type $type)
     {
-        //
+        return view('admin.types.edit', compact('type'));
     }
 
     /**
@@ -75,7 +86,15 @@ class TypeController extends Controller
      */
     public function update(UpdateTypeRequest $request, Type $type)
     {
-        //
+        $form = $request->validated();
+        $slug = Project::generateSlug($request->name, '-');
+
+        $form['slug'] = $slug;
+
+        $type->update($form);
+
+
+        return redirect()->route('admin.types.index')->with('message', 'MODIFIED TYPE');
     }
 
     /**
@@ -86,6 +105,8 @@ class TypeController extends Controller
      */
     public function destroy(Type $type)
     {
-        //
+        $type->delete();
+
+        return redirect()->route('admin.types.index')->with('message', 'TYPE CANCELLED');
     }
 }

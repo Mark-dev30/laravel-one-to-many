@@ -8,7 +8,7 @@
            
             <h1 class="text-center">TYPE LIST</h1>
             <div class="text-center m-5">
-                <a href="{{-- {{ route('admin.types.create')}} --}}" class="btn btn-primary">Add type!</a>
+                <a href="{{ route('admin.types.create')}}" class="btn btn-primary">Add type!</a>
             </div>
             <table class="table">
                 <thead class="table-dark">
@@ -33,11 +33,11 @@
                                     <i class="fa-solid fa-eye"></i>
                                 </a>
                                 
-                                <a class="btn btn-sm btn-warning ms-2 me-2" href="{{-- {{ route('admin.types.edit', $type->slug) }} --}}">
+                                <a class="btn btn-sm btn-warning ms-2 me-2" href="{{ route('admin.types.edit', $type->slug) }}">
                                     <i class="fa-solid fa-pencil"></i>
                                 </a>
                                 
-                                <form action="{{-- {{ route('admin.types.destroy', $type->slug)}} --}}" method="POST">
+                                <form action="{{ route('admin.types.destroy', $type->slug)}}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger confirm-delete-button">
@@ -55,5 +55,5 @@
     </div>
 </div>
 {{-- INCLUDIAMO LA MODALE --}}
-@include("admin.projects.modal")
+@include("admin.types.modal")
 @endsection

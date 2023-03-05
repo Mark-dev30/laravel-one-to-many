@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateTypeRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class UpdateTypeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,17 @@ class UpdateTypeRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required', Rule::unique('types')->ignore($this->type), 'max:50'],
+
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Name must be entered',
+            'name.unique' => 'A type with this name already exists',
+            'name.max' => 'The name cannot exceed :max characters'
         ];
     }
 }
